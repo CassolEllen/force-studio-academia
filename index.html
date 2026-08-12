@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Force Studio — treino sério, gente de verdade</title>
+<meta name="description" content="Musculação livre, aulas em grupo e estrutura completa. Peso livre, spinning, zumba, HIIT, ioga, pilates e dança.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0D0D0D;
+    --charcoal:#1A1A1A;
+    --charcoal-2:#1F1F1F;
+    --off-white:#FAFAF8;
+    --mustard:#C9962E;
+    --mustard-dark:#6B5323;
+    --gray:#A8A8A5;
+    --gray-dim:#6E6E6B;
+    --border:#2A2A2A;
+    --radius:6px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--off-white);
+    font-family:'Space Grotesk',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  .photo-treated{filter:grayscale(0.85) contrast(1.08) brightness(0.92);}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+  h1,h2,h3{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:0.01em;line-height:0.98;text-transform:uppercase;}
+  .eyebrow{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--mustard);
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{content:"";width:14px;height:1px;background:var(--mustard);}
+  .mono{font-family:'Space Mono',monospace;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--mustard);color:var(--black);
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;
+    letter-spacing:0.03em;text-transform:uppercase;
+    padding:15px 26px;border-radius:var(--radius);
+    border:none;cursor:pointer;
+  }
+  .btn:hover{background:#dba63a;}
+  .btn-outline{
+    background:transparent;color:var(--off-white);
+    border:1px solid var(--border);
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.03em;
+    padding:15px 26px;border-radius:var(--radius);cursor:pointer;
+  }
+  .btn-outline:hover{border-color:var(--mustard);color:var(--mustard);}
+
+  /* plate icon: weight plate used as bullet / intensity marker */
+  .plate{
+    display:inline-block;border-radius:50%;
+    border-style:solid;border-color:var(--mustard);
+    background:transparent;
+  }
+  .plate.filled{background:var(--mustard);border-color:var(--mustard);}
+  .plate.dim{border-color:var(--mustard-dark);background:var(--mustard-dark);}
+
+  /* NAV */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(13,13,13,0.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--border);
+  }
+  nav{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.02em;}
+  .logo span{color:var(--mustard);}
+  .nav-links{display:flex;gap:32px;font-size:14px;}
+  .nav-links a:hover{color:var(--mustard);}
+  .nav-cta{border:1px solid var(--border);padding:9px 18px;border-radius:var(--radius);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;}
+  .nav-cta:hover{border-color:var(--mustard);color:var(--mustard);}
+  @media(max-width:760px){.nav-links{display:none;}}
+
+  /* HERO */
+  .hero{
+    position:relative;min-height:640px;display:flex;align-items:flex-end;
+    background:linear-gradient(180deg,rgba(13,13,13,0.35) 0%,rgba(13,13,13,0.8) 55%,var(--black) 100%),
+      url('assets/hero-musculacao.jpg') center 25%/cover no-repeat;
+    background-blend-mode:normal, luminosity;
+    background-color:#0D0D0D;
+  }
+  .hero-inner{padding:80px 24px 64px;max-width:1200px;margin:0 auto;width:100%;}
+  .hero h1{font-size:clamp(40px,7vw,76px);max-width:820px;}
+  .hero h1 .accent{color:var(--mustard);}
+  .hero p{color:var(--gray);max-width:520px;margin:20px 0 28px;font-size:16px;}
+  .hero-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .hero-note{font-size:13px;color:var(--gray);display:flex;align-items:center;gap:8px;}
+
+  section{padding:88px 0;}
+  .section-head{max-width:640px;margin-bottom:44px;}
+  .section-head p{color:var(--gray);margin-top:12px;}
+  h2{font-size:clamp(30px,4vw,44px);}
+
+  /* STATS + AMENITIES */
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px;}
+  .stat-card{background:var(--charcoal-2);border-radius:12px;padding:26px 22px;}
+  .stat-card .num{font-family:'Space Mono',monospace;font-size:40px;font-weight:700;color:var(--mustard);}
+  .stat-card .label{font-weight:500;margin-top:10px;font-size:15px;}
+  .stat-card .desc{color:var(--gray);font-size:13px;margin-top:4px;}
+  @media(max-width:900px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
+
+  .amenities-row{display:flex;flex-wrap:wrap;gap:24px;padding:18px 4px;margin-bottom:14px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .amenity{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--gray);}
+
+  .callout-card{
+    background:var(--charcoal-2);border:1px solid var(--mustard);border-radius:12px;
+    padding:26px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between;
+  }
+  .callout-card .title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--mustard);text-transform:uppercase;}
+  .callout-card p{color:var(--gray);font-size:14px;max-width:520px;margin-top:6px;}
+
+  /* BIOIMPEDANCIA */
+  .bio-section{background:var(--charcoal);}
+  .bio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px;}
+  .bio-stat{background:var(--charcoal-2);border-radius:12px;padding:24px;text-align:center;}
+  .bio-stat .num{font-family:'Space Mono',monospace;font-size:34px;font-weight:700;}
+  .bio-stat .label{color:var(--gray);font-size:13px;margin-top:6px;}
+  .bio-note{color:var(--gray-dim);font-size:12px;margin-top:14px;text-align:center;}
+  @media(max-width:700px){.bio-grid{grid-template-columns:1fr;}}
+
+  /* AULAS */
+  .aulas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .aulas-grid .card:nth-child(n+5){grid-column:span 1;}
+  .class-card{background:var(--charcoal-2);border-radius:12px;overflow:hidden;}
+  .class-card .photo{height:150px;background-size:cover;background-position:center;position:relative;filter:grayscale(0.85) contrast(1.08) brightness(0.92);}
+  .class-card .plates{position:absolute;bottom:10px;left:10px;display:flex;gap:4px;}
+  .class-card .body{padding:16px 16px 20px;}
+  .class-card h3{font-size:20px;}
+  .class-card p{color:var(--gray);font-size:13px;margin-top:6px;}
+  @media(max-width:900px){.aulas-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.aulas-grid{grid-template-columns:1fr;}}
+
+  /* GRADE */
+  .filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}
+  .chip{
+    font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;
+    padding:9px 14px;border-radius:20px;border:1px solid var(--border);
+    background:transparent;color:var(--gray);cursor:pointer;
+  }
+  .chip.active{background:var(--mustard);color:var(--black);border-color:var(--mustard);}
+  table.grade{width:100%;border-collapse:collapse;font-size:13px;}
+  table.grade th,table.grade td{padding:10px 8px;text-align:center;border-bottom:1px solid var(--border);}
+  table.grade th{color:var(--gray);font-weight:500;text-transform:uppercase;font-size:11px;letter-spacing:0.05em;}
+  table.grade td.hour{font-family:'Space Mono',monospace;color:var(--mustard);text-align:left;}
+  .cell{border-radius:4px;padding:6px 4px;font-weight:700;font-size:11px;transition:opacity .15s ease;}
+  .cell.spinning{background:#4A2F0F;color:#F2C879;}
+  .cell.zumba{background:#3A1414;color:#EFA1A1;}
+  .cell.hiit{background:#153A24;color:#8FE0AF;}
+  .cell.musculacao{background:#122A44;color:#8FBBEA;}
+  .cell.ioga{background:#2E1F3D;color:#C6A6E0;}
+  .cell.pilates{background:#33301A;color:#E3DA9C;}
+  .cell.danca{background:#3D1A2E;color:#E39CC0;}
+  .cell.dim{opacity:0.18;}
+  .grade-note{color:var(--gray-dim);font-size:12px;margin-top:16px;}
+  .grade-wrap{overflow-x:auto;}
+
+  .cta-mid{background:var(--charcoal-2);border-radius:12px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:56px;}
+  .cta-mid p{font-family:'Bebas Neue',sans-serif;font-size:22px;text-transform:uppercase;}
+
+  /* PLANOS */
+  .planos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .plano-card{background:var(--charcoal-2);border-radius:12px;padding:28px 24px;border:1px solid var(--border);display:flex;flex-direction:column;}
+  .plano-card.featured{border:2px solid var(--mustard);position:relative;}
+  .plano-badge{position:absolute;top:-13px;left:24px;background:var(--mustard);color:var(--black);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;padding:4px 10px;border-radius:4px;}
+  .plano-card h3{font-size:18px;font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;}
+  .plano-price{font-family:'Space Mono',monospace;font-size:32px;font-weight:700;color:var(--mustard);margin-bottom:18px;}
+  .plano-price span{font-size:14px;color:var(--gray);font-weight:400;}
+  .plano-card ul{list-style:none;margin-bottom:22px;flex:1;}
+  .plano-card li{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--gray);padding:6px 0;}
+  @media(max-width:900px){.planos-grid{grid-template-columns:1fr;}}
+
+  /* GALERIA */
+  .galeria-grid{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;gap:14px;}
+  .galeria-grid .g-item{position:relative;border-radius:12px;overflow:hidden;background-size:cover;background-position:center;min-height:220px;filter:grayscale(0.85) contrast(1.08) brightness(0.92);}
+  .galeria-grid .g-item .tag{position:absolute;bottom:12px;left:12px;background:rgba(13,13,13,0.75);font-size:11px;text-transform:uppercase;letter-spacing:0.04em;padding:6px 10px;border-radius:4px;font-weight:700;}
+  .g-1{grid-row:span 2;min-height:456px !important;}
+  @media(max-width:760px){.galeria-grid{grid-template-columns:1fr;}.g-1{grid-row:auto;min-height:220px !important;}}
+
+  /* EQUIPE */
+  .equipe-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .equipe-card .photo{height:200px;border-radius:12px;background-size:cover;background-position:center;margin-bottom:14px;}
+  .equipe-card h3{font-size:18px;font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .equipe-card p{color:var(--gray);font-size:13px;margin-top:4px;}
+  @media(max-width:900px){.equipe-grid{grid-template-columns:repeat(2,1fr);}}
+
+  /* AVALIACOES */
+  .avaliacoes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .avaliacao-card{background:var(--charcoal-2);border-radius:12px;padding:22px;}
+  .avaliacao-card p.quote{font-size:14px;color:var(--off-white);margin-bottom:16px;}
+  .avaliacao-card .name{font-weight:700;font-size:14px;}
+  .avaliacao-card .time{color:var(--gray-dim);font-size:12px;}
+  @media(max-width:900px){.avaliacoes-grid{grid-template-columns:1fr;}}
+
+  /* CTA FINAL */
+  .cta-final{
+    background:linear-gradient(180deg,var(--black) 0%,#2B1508 100%);
+    text-align:center;padding:110px 24px;
+  }
+  .cta-final h2{font-size:clamp(32px,5vw,54px);max-width:760px;margin:0 auto;}
+  .cta-final p{color:var(--gray);max-width:480px;margin:20px auto 30px;font-size:15px;}
+
+  footer{border-top:1px solid var(--border);padding:56px 0 28px;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;}
+  .footer-grid .logo{margin-bottom:12px;}
+  .footer-grid p{color:var(--gray);font-size:13px;max-width:260px;}
+  .footer-grid h4{font-size:12px;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-dim);margin-bottom:12px;}
+  .footer-grid a,.footer-grid .line{display:block;font-size:14px;color:var(--gray);margin-bottom:6px;}
+  .footer-grid a:hover{color:var(--mustard);}
+  .footer-bottom{display:flex;justify-content:space-between;font-size:12px;color:var(--gray-dim);border-top:1px solid var(--border);padding-top:20px;flex-wrap:wrap;gap:8px;}
+  @media(max-width:760px){.footer-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">FORCE <span>STUDIO</span></div>
+    <div class="nav-links">
+      <a href="#aulas">Aulas</a>
+      <a href="#estrutura">Estrutura</a>
+      <a href="#planos">Planos</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <a href="#contato" class="nav-cta">Entrar</a>
+  </nav>
+</header>
+
+<section class="hero" style="padding:0;">
+  <div class="hero-inner">
+    <h1>PESO LIVRE. AULA EM GRUPO.<br>ESTRUTURA DE <span class="accent">VERDADE</span>.</h1>
+    <p>Musculação livre, aulas em grupo e estrutura completa. De segunda a sábado, das 6h às 23h, sem frescura.</p>
+    <div class="hero-actions">
+      <a href="#contato" class="btn">Agendar aula experimental</a>
+      <span class="hero-note"><span class="plate filled" style="width:8px;height:8px;border-width:0;"></span> Primeira aula totalmente grátis</span>
+    </div>
+  </div>
+</section>
+
+<section id="estrutura">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">O que nos torna completos</div>
+      <h2>O que você encontra aqui</h2>
+      <p>Equipamentos bons, horário longo e aulas com professores que sabem o que estão fazendo. Sem frescura, sem enrolação.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="num">800m²</div>
+        <div class="label">Área de treino</div>
+        <div class="desc">Espaço aberto pra musculação, aula e fluxo sem congestionamento.</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">18h</div>
+        <div class="label">Funcionamento diário</div>
+        <div class="desc">Aberto de segunda a sábado, das 6h às 23h.</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">8</div>
+        <div class="label">Anos de história</div>
+        <div class="desc">8 anos de portas abertas e gente que continua treinando conosco.</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">30+</div>
+        <div class="label">Profissionais qualificados</div>
+        <div class="desc">Treinadores prontos pra planejar, corrigir e ajustar sua técnica.</div>
+      </div>
+    </div>
+
+    <div class="amenities-row">
+      <div class="amenity"><span class="plate filled" style="width:8px;height:8px;border-width:0;"></span> Duchas</div>
+      <div class="amenity"><span class="plate filled" style="width:8px;height:8px;border-width:0;"></span> Armários</div>
+      <div class="amenity"><span class="plate filled" style="width:8px;height:8px;border-width:0;"></span> Estacionamento</div>
+      <div class="amenity"><span class="plate filled" style="width:8px;height:8px;border-width:0;"></span> Wi-fi</div>
+    </div>
+
+    <div class="callout-card">
+      <div>
+        <div class="title">Botão de chamada nos equipamentos</div>
+        <p>Precisa de ajuda no meio do treino? Um botão na própria máquina chama o professor mais próximo — sem sair procurando.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bio-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Acompanhamento mensal</div>
+      <h2>Acompanhamento de verdade</h2>
+      <p>Bioimpedância não é balança chique — é o dado que mostra quando o seu peso e os seus músculos estão mudando de verdade. Incluso no plano Completo, todo mês, sem custo extra.</p>
+    </div>
+    <div class="bio-grid">
+      <div class="bio-stat"><div class="num">24.3%</div><div class="label">Gordura corporal</div></div>
+      <div class="bio-stat"><div class="num">31.2kg</div><div class="label">Massa magra</div></div>
+      <div class="bio-stat"><div class="num">62.1%</div><div class="label">Água corporal</div></div>
+    </div>
+    <p class="bio-note">exemplo de relatório gerado na avaliação mensal</p>
+  </div>
+</section>
+
+<section id="aulas">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Aulas dinâmicas e completas</div>
+      <h2>Nossas aulas</h2>
+      <p>Escolha o que você quer: peso livre, aula em grupo ou treino de alta intensidade. Todas têm professor e horário definido.</p>
+    </div>
+
+    <div class="aulas-grid">
+      <div class="class-card">
+        <div class="photo" style="background-image:url('assets/spinning.jpg')">
+          <div class="plates">
+            <span class="plate filled" style="width:14px;height:14px;border-width:0;"></span>
+            <span class="plate filled" style="width:14px;height:14px;border-width:0;"></span>
+            <span class="plate filled" style="width:14px;height:14px;border-width:0;"></span>
+          </div>
+        </div>
+        <div class="body"><h3>Spinning</h3><p>Ciclismo indoor de alta rotação, foco em queima calórica e resistência.</p></div>
+      </div>
+      <div class="class-card">
+        <div class="photo" style="background-image:url('assets/zumba.jpg')">
+          <div class="plates"><span class="plate dim" style="width:14px;height:14px;border-width:0;"></span></div>
+        </div>
+        <div class="body"><h3>Zumba</h3><p>Ritmos envolventes e coreografia simples pra exercitar o corpo sorrindo.</p></div>
+      </div>
+      <div class="class-card">
+        <div class="photo" style="background-image:url('assets/hiit.jpg')">
+          <div class="plates">
+            <span class="plate filled" style="width:16px;height:16px;border-width:0;"></span>
+            <span class="plate filled" style="width:16px;height:16px;border-width:0;"></span>
+            <span class="plate filled" style="width:16px;height:16px;border-width:0;"></span>
+          </div>
+        </div>
+        <div class="body"><h3>HIIT</h3><p>Treino intervalado de alta intensidade pra acelerar o metabolismo.</p></div>
+      </div>
+      <div class="class-card">
+        <div class="photo" style="background-image:url('assets/musculacao-livre.jpg')">
+          <div class="plates">
+            <span class="plate filled" style="width:14px;height:14px;border-width:0;"></span>
+            <span class="plate filled" style="width:14px;height:14px;border-width:0;"></span>
+          </div>
+        </div>
+        <div class="body"><h3>Musculação livre</h3><p>Espaço completo com pesos livres, halteres e máquinas focadas em hipertrofia.</p></div>
+      </div>
+      <div class="class-card">
+        <div class="photo" style="background-image:url('assets/ioga.jpg')">
+          <div class="plates"><span class="plate dim" style="width:14px;height:14px;border-width:0;"></span></div>
+        </div>
+        <div class="body"><h3>Ioga</h3><p>Foco em flexibilidade, respiração e equilíbrio mental.</p></div>
+      </div>
+      <div class="class-card">
+        <div class="photo" style="background-image:url('assets/pilates.jpg')">
+          <div class="plates">
+            <span class="plate filled" style="width:14px;height:14px;border-width:0;"></span>
+            <span class="plate dim" style="width:14px;height:14px;border-width:0;"></span>
+          </div>
+        </div>
+        <div class="body"><h3>Pilates</h3><p>Fortalecimento do core e da postura, com baixo impacto nas articulações.</p></div>
+      </div>
+      <div class="class-card">
+        <div class="photo" style="background-image:url('assets/danca.jpg')">
+          <div class="plates">
+            <span class="plate filled" style="width:14px;height:14px;border-width:0;"></span>
+            <span class="plate dim" style="width:14px;height:14px;border-width:0;"></span>
+          </div>
+        </div>
+        <div class="body"><h3>Dança</h3><p>Aula coreografada, cardio disfarçado de diversão.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Grade horária</div>
+      <h2>Grade horária semanal</h2>
+      <p>Encontre o seu horário e garanta sua presença. Atividades estruturadas de segunda a sábado.</p>
+    </div>
+
+    <div class="filter-row" id="filterRow">
+      <button class="chip active" data-filter="all">Todas</button>
+      <button class="chip" data-filter="spinning">Spinning</button>
+      <button class="chip" data-filter="zumba">Zumba</button>
+      <button class="chip" data-filter="hiit">HIIT</button>
+      <button class="chip" data-filter="musculacao">Musculação</button>
+      <button class="chip" data-filter="ioga">Ioga</button>
+      <button class="chip" data-filter="pilates">Pilates</button>
+      <button class="chip" data-filter="danca">Dança</button>
+    </div>
+
+    <div class="grade-wrap">
+      <table class="grade" id="gradeTable">
+        <thead>
+          <tr><th></th><th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th></tr>
+        </thead>
+        <tbody>
+          <!-- rows injected by JS -->
+        </tbody>
+      </table>
+    </div>
+    <p class="grade-note">Horários variam por dia — consulte a grade completa na recepção.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="cta-mid">
+    <p>Quer experimentar antes de decidir?</p>
+    <a href="#contato" class="btn">Agendar aula experimental</a>
+  </div>
+</div>
+
+<section id="planos">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Planos de treino</div>
+      <h2>Escolha como treinar</h2>
+      <p>Três opções pra você escolher o ritmo certo. Sem frescura, sem enrolação — só treino.</p>
+    </div>
+    <div class="planos-grid">
+      <div class="plano-card">
+        <h3>Básico</h3>
+        <div class="plano-price">R$ 89<span>/mês</span></div>
+        <ul>
+          <li><span class="plate filled" style="width:7px;height:7px;border-width:0;margin-top:5px;"></span> Musculação livre</li>
+          <li><span class="plate filled" style="width:7px;height:7px;border-width:0;margin-top:5px;"></span> Horário comercial (6h às 18h)</li>
+          <li><span class="plate filled" style="width:7px;height:7px;border-width:0;margin-top:5px;"></span> Sem aulas coletivas</li>
+        </ul>
+        <a href="#contato" class="btn-outline" style="text-align:center;">Começar</a>
+      </div>
+      <div class="plano-card featured">
+        <span class="plano-badge">Mais escolhido</span>
+        <h3>Completo</h3>
+        <div class="plano-price">R$ 149<span>/mês</span></div>
+        <ul>
+          <li><span class="plate filled" style="width:7px;height:7px;border-width:0;margin-top:5px;"></span> Musculação livre em qualquer horário</li>
+          <li><span class="plate filled" style="width:7px;height:7px;border-width:0;margin-top:5px;"></span> Todas as aulas coletivas (spinning, zumba, HIIT e mais)</li>
+          <li><span class="plate filled" style="width:7px;height:7px;border-width:0;margin-top:5px;"></span> Horário estendido (6h às 23h)</li>
+          <li><span class="plate filled" style="width:7px;height:7px;border-width:0;margin-top:5px;"></span> Bioimpedância mensal inclusa</li>
+        </ul>
+        <a href="#contato" class="btn" style="text-align:center;justify-content:center;">Começar agora</a>
+      </div>
+      <div class="plano-card">
+        <h3>Anual</h3>
+        <div class="plano-price">R$ 129<span>/mês</span></div>
+        <ul>
+          <li><span class="plate filled" style="width:7px;height:7px;border-width:0;margin-top:5px;"></span> Tudo do plano Completo</li>
+          <li><span class="plate filled" style="width:7px;height:7px;border-width:0;margin-top:5px;"></span> Desconto de 15% no valor mensal</li>
+          <li><span class="plate filled" style="width:7px;height:7px;border-width:0;margin-top:5px;"></span> 1 mês de cortesia a cada 12 meses de plano</li>
+        </ul>
+        <a href="#contato" class="btn-outline" style="text-align:center;">Fechar o ano</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Galeria da academia</div>
+      <h2>Como é aqui dentro</h2>
+      <p>Fotos reais dos nossos espaços: musculação, salas de aula, recepção e vestiário. Sem pose, sem edição exagerada.</p>
+    </div>
+    <div class="galeria-grid">
+      <div class="g-item g-1" style="background-image:url('assets/anilhas.jpg');background-position:center 40%;"><span class="tag">Equipamentos</span></div>
+      <div class="g-item" style="background-image:url('assets/hero-musculacao.jpg');background-position:center 20%;"><span class="tag">Musculação</span></div>
+      <div class="g-item" style="background-image:url('assets/spinning.jpg')"><span class="tag">Sala de aula</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Equipe</div>
+      <h2>Quem te ajuda a treinar</h2>
+      <p>Professores com experiência real, que montam treinos, corrigem técnica e não deixam você parado.</p>
+    </div>
+    <div class="equipe-grid">
+      <div class="equipe-card">
+        <div class="photo" style="background-image:url('https://picsum.photos/seed/bruno/400/400?grayscale')"></div>
+        <h3>Bruno Silva</h3><p>Especialista em treino de força e hipertrofia.</p>
+      </div>
+      <div class="equipe-card">
+        <div class="photo" style="background-image:url('https://picsum.photos/seed/camila/400/400?grayscale')"></div>
+        <h3>Camila Costa</h3><p>Instrutora de spinning há 5 anos.</p>
+      </div>
+      <div class="equipe-card">
+        <div class="photo" style="background-image:url('https://picsum.photos/seed/rafael/400/400?grayscale')"></div>
+        <h3>Rafael Lima</h3><p>Preparador físico de atletas e treino funcional.</p>
+      </div>
+      <div class="equipe-card">
+        <div class="photo" style="background-image:url('https://picsum.photos/seed/luana/400/400?grayscale')"></div>
+        <h3>Luana Mendes</h3><p>Instrutora de HIIT e treino em grupo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Avaliações</div>
+      <h2>O que os alunos dizem</h2>
+      <p>Depoimentos reais de pessoas que treinam aqui. Sem frase pronta, só o que aconteceu.</p>
+    </div>
+    <div class="avaliacoes-grid">
+      <div class="avaliacao-card">
+        <p class="quote">"Entrei sem saber nada de musculação, hoje treino sozinho e sei montar minha própria ficha."</p>
+        <div class="name">Pedro Almeida</div><div class="time">1 mês treinando</div>
+      </div>
+      <div class="avaliacao-card">
+        <p class="quote">"Fiz 3 meses de spinning e perdi 8kg sem dieta maluca. A aula é pesada, mas não é sofrida."</p>
+        <div class="name">Marina Souza</div><div class="time">3 meses treinando</div>
+      </div>
+      <div class="avaliacao-card">
+        <p class="quote">"Voltei a treinar depois de 10 anos parado. O pessoal aqui não te julga — só ajuda a voltar."</p>
+        <div class="name">Carlos Oliveira</div><div class="time">1 ano treinando</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" id="contato">
+  <h2>Quer conhecer?</h2>
+  <p>Primeira aula experimental grátis. Sem compromisso, sem matrícula. Venha ver o espaço e sentir como funciona.</p>
+  <a href="#" class="btn">Agendar aula experimental gratuita</a>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="logo">FORCE <span>STUDIO</span></div>
+        <p>Treinamento completo, estrutura de verdade e uma comunidade que continua aparecendo.</p>
+      </div>
+      <div>
+        <h4>Localização</h4>
+        <span class="line">Av. Paulista, 1500 — Cerqueira César</span>
+        <span class="line">São Paulo, SP · 01311-200</span>
+      </div>
+      <div>
+        <h4>Horários</h4>
+        <span class="line">Segunda a Sexta: 06h às 23h</span>
+        <span class="line">Sábado: 08h às 18h</span>
+        <span class="line">Domingo: Fechado</span>
+      </div>
+      <div>
+        <h4>Redes sociais</h4>
+        <a href="#">Instagram</a>
+        <a href="#">WhatsApp</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Force Studio. Todos os direitos reservados.</span>
+      <span>Desenvolvido com foco no alto rendimento.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---- Grade horária: data + render + filter ----
+  const days = ['seg','ter','qua','qui','sex','sab'];
+  // schedule: hour -> array of {day, modality, label} (day index 0-5, blank = no class)
+  const schedule = [
+    {hour:'06h', classes:['hiit','musculacao','hiit','musculacao','hiit','spinning']},
+    {hour:'07h', classes:['spinning','hiit','spinning','hiit','spinning','zumba']},
+    {hour:'08h', classes:['musculacao','zumba','musculacao','zumba','musculacao','hiit']},
+    {hour:'09h', classes:['zumba','spinning','zumba','spinning','zumba','']},
+    {hour:'17h', classes:['hiit','musculacao','hiit','musculacao','hiit','']},
+    {hour:'18h', classes:['spinning','hiit','spinning','hiit','spinning','']},
+    {hour:'19h', classes:['musculacao','zumba','musculacao','zumba','musculacao','']},
+    {hour:'20h', classes:['zumba','spinning','zumba','spinning','hiit','']},
+  ];
+  const labels = {spinning:'Spinning',zumba:'Zumba',hiit:'HIIT',musculacao:'Musc.',ioga:'Ioga',pilates:'Pilates',danca:'Dança'};
+
+  const tbody = document.querySelector('#gradeTable tbody');
+  schedule.forEach(row=>{
+    const tr = document.createElement('tr');
+    let html = `<td class="hour">${row.hour}</td>`;
+    row.classes.forEach(mod=>{
+      if(mod){
+        html += `<td><div class="cell ${mod}" data-mod="${mod}">${labels[mod]}</div></td>`;
+      } else {
+        html += `<td></td>`;
+      }
+    });
+    tr.innerHTML = html;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('filterRow').addEventListener('click', e=>{
+    const btn = e.target.closest('.chip');
+    if(!btn) return;
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.cell').forEach(cell=>{
+      if(filter === 'all' || cell.dataset.mod === filter){
+        cell.classList.remove('dim');
+      } else {
+        cell.classList.add('dim');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
